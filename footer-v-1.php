@@ -59,10 +59,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <ul class="footer-links">
                     <li><a href="/contact-us/"><span class="link-icon">›</span> Contact Us</a></li>
                     <li><a href="/events/"><span class="link-icon">›</span> Events</a></li>
-                    <li><a href="/faqs/"><span class="link-icon">›</span> FAQs</a></li>
-                    <li><a href="/about/"><span class="link-icon">›</span> About</a></li>
-                    <li><a href="/services/"><span class="link-icon">›</span> Services</a></li>
-                    <li><a href="/market-directory/"><span class="link-icon">›</span> Market Directory</a></li>
+                    <li><a href="#"><span class="link-icon">›</span> FAQs</a></li>
+                    <li><a href="/halal-manufacturing/"><span class="link-icon">›</span> About</a></li>
                 </ul>
             </div>
             
@@ -107,14 +105,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                     
                     <!-- Simple Contact Form -->
-                    <div class="contact-form-section">
-                        <p class="form-title">Quick Inquiry</p>
-                        <form class="simple-contact-form">
-                            <input type="email" placeholder="Your email" required>
-                            <textarea placeholder="Your message" rows="2"></textarea>
-                            <button type="submit">Send Message</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>
@@ -126,11 +116,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <p>&copy; <?php echo date('Y'); ?> Halal Pharmacore. All rights reserved.</p>
                 </div>
                 <div class="legal-links">
-                    <a href="/privacy-policy/">Privacy Policy</a>
+                    <a href="#">Privacy Policy</a>
                     <span class="divider">|</span>
-                    <a href="/terms-of-service/">Terms of Service</a>
+                    <a href="#">Terms of Service</a>
                     <span class="divider">|</span>
-                    <a href="/sitemap/">Sitemap</a>
+                    <a href="#">Sitemap</a>
                 </div>
             </div>
         </div>
