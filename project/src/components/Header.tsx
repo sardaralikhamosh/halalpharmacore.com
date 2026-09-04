@@ -4,21 +4,36 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
-  const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const desktopDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
+  // Handle click outside for desktop dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(event.target as Node)) {
-        setServicesDropdownOpen(false);
+      if (desktopDropdownRef.current && !desktopDropdownRef.current.contains(event.target as Node)) {
+        setDesktopDropdownOpen(false);
       }
     };
 
-    if (servicesDropdownOpen) {
+    if (desktopDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
-  }, [servicesDropdownOpen]);
+  }, [desktopDropdownOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { label: 'Home', path: '/' },
@@ -40,7 +55,7 @@ export default function Header() {
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-         <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img 
               src="/logo.png" 
               alt="HalalPharmaCare Logo" 
@@ -48,6 +63,7 @@ export default function Header() {
             />
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map(link => (
               <Link
@@ -59,23 +75,23 @@ export default function Header() {
               </Link>
             ))}
 
-            <div className="relative" ref={servicesDropdownRef}>
+            <div className="relative" ref={desktopDropdownRef}>
               <button
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                onClick={() => setDesktopDropdownOpen(!desktopDropdownOpen)}
                 className="flex items-center gap-1 text-gray-700 hover:text-emerald-600 transition-colors font-medium"
               >
                 Services
-                <ChevronDown size={18} className={`transition-transform duration-300 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={18} className={`transition-transform duration-300 ${desktopDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {servicesDropdownOpen && (
+              {desktopDropdownOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
                   {servicesLinks.map(link => (
                     <Link
                       key={link.path}
                       to={link.path}
                       className="block px-4 py-2.5 text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors font-medium"
-                      onClick={() => setServicesDropdownOpen(false)}
+                      onClick={() => setDesktopDropdownOpen(false)}
                     >
                       {link.label}
                     </Link>
@@ -89,16 +105,19 @@ export default function Header() {
             </button>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-gray-700"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-3">
+          <div className="md:hidden py-4 space-y-3 border-t border-gray-100">
             {navLinks.map(link => (
               <Link
                 key={link.path}
@@ -110,17 +129,17 @@ export default function Header() {
               </Link>
             ))}
 
-            <div className="py-2">
+            <div className="py-2" ref={mobileDropdownRef}>
               <button
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
                 className="flex items-center gap-1 w-full text-gray-700 hover:text-emerald-600 transition-colors font-medium"
               >
                 Services
-                <ChevronDown size={18} className={`transition-transform duration-300 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={18} className={`transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {servicesDropdownOpen && (
-                <div className="mt-2 pl-4 space-y-2">
+              {mobileDropdownOpen && (
+                <div className="mt-2 pl-4 space-y-2 border-l-2 border-emerald-200">
                   {servicesLinks.map(link => (
                     <Link
                       key={link.path}
@@ -128,7 +147,7 @@ export default function Header() {
                       className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-1.5"
                       onClick={() => {
                         setMobileMenuOpen(false);
-                        setServicesDropdownOpen(false);
+                        setMobileDropdownOpen(false);
                       }}
                     >
                       {link.label}
@@ -138,7 +157,10 @@ export default function Header() {
               )}
             </div>
 
-            <button className="w-full bg-emerald-600 text-white px-6 py-2.5 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-medium">
+            <button 
+              className="w-full bg-emerald-600 text-white px-6 py-2.5 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-medium"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               Get Started
             </button>
           </div>
