@@ -258,99 +258,36 @@ export default function HalalAssuranceSystemPage() {
 
       <section className="py-24 bg-gradient-to-br from-teal-900 via-cyan-800 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-                Ready to Build Your HAS?
-              </h2>
-              <p className="text-teal-50 text-lg mb-8 leading-relaxed">
-                Let our expert team guide you through establishing a comprehensive Halal Assurance System that meets international standards and regulatory requirements.
-              </p>
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              Ready to Build Your HAS?
+            </h2>
+            <p className="text-teal-50 text-lg mb-8 leading-relaxed">
+              Let our expert team guide you through establishing a comprehensive Halal Assurance System that meets international standards and regulatory requirements.
+            </p>
 
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                  <span className="text-teal-50">Customized implementation roadmap</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                  <span className="text-teal-50">Expert staff training and development</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                  <span className="text-teal-50">Ongoing compliance monitoring</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                  <span className="text-teal-50">Dedicated support throughout implementation</span>
-                </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
+                <span className="text-teal-50">Customized implementation roadmap</span>
               </div>
-
-              <button className="px-8 py-4 rounded-lg bg-white text-teal-600 font-semibold hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2">
-                Schedule Consultation
-              </button>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
+                <span className="text-teal-50">Expert staff training and development</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
+                <span className="text-teal-50">Ongoing compliance monitoring</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
+                <span className="text-teal-50">Dedicated support throughout implementation</span>
+              </div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
-              <h3 className="text-2xl font-bold mb-6">Get Started Today</h3>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="org-name" className="block text-sm font-semibold text-teal-100 mb-2">
-                    Organization Name
-                  </label>
-                  <input
-                    type="text"
-                    id="org-name"
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
-                    placeholder="Your Organization"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact" className="block text-sm font-semibold text-teal-100 mb-2">
-                    Contact Email
-                  </label>
-                  <input
-                    type="email"
-                    id="contact"
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
-                    placeholder="you@organization.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="sector" className="block text-sm font-semibold text-teal-100 mb-2">
-                    Industry Sector
-                  </label>
-                  <select
-                    id="sector"
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
-                  >
-                    <option value="" className="bg-gray-800">Select your sector</option>
-                    <option value="pharmaceutical" className="bg-gray-800">Pharmaceutical</option>
-                    <option value="food-beverage" className="bg-gray-800">Food & Beverage</option>
-                    <option value="cosmetics" className="bg-gray-800">Cosmetics</option>
-                    <option value="nutraceutical" className="bg-gray-800">Nutraceutical</option>
-                    <option value="other" className="bg-gray-800">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-teal-100 mb-2">
-                    Tell us about your HAS needs
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none resize-none"
-                    placeholder="What are your specific HAS requirements?"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-white text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
-                >
-                  Request Consultation
-                </button>
-              </form>
-            </div>
+            <button className="px-8 py-4 rounded-lg bg-white text-teal-600 font-semibold hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2">
+              Schedule Consultation
+            </button>
           </div>
         </div>
       </section>

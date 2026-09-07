@@ -1,6 +1,6 @@
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -8,6 +8,7 @@ export default function Header() {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const desktopDropdownRef = useRef<HTMLDivElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   // Handle click outside for desktop dropdown
   useEffect(() => {
@@ -35,12 +36,29 @@ export default function Header() {
     };
   }, [mobileMenuOpen]);
 
+  // Function to handle "Get Started" button click
+  const handleGetStarted = () => {
+    if (location.pathname === '/') {
+      // If on home page, scroll to contact section
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on other page, navigate to home page with contact section hash
+      window.location.href = '/#contact';
+    }
+    // Close mobile menu if open
+    setMobileMenuOpen(false);
+  };
+
+  // Reordered navigation links: home, services, events, directory, market news, manufacturing
   const navLinks = [
     { label: 'Home', path: '/' },
-    { label: 'Manufacturing', path: '/manufacturing' },
     { label: 'Events', path: '/events' },
     { label: 'Directory', path: '/directory' },
     { label: 'Market News', path: '/market-news' },
+    { label: 'Manufacturing', path: '/manufacturing' },
   ];
 
   const servicesLinks = [
@@ -65,16 +83,15 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map(link => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Home link */}
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
+            >
+              Home
+            </Link>
 
+            {/* Services Dropdown */}
             <div className="relative" ref={desktopDropdownRef}>
               <button
                 onClick={() => setDesktopDropdownOpen(!desktopDropdownOpen)}
@@ -100,7 +117,21 @@ export default function Header() {
               )}
             </div>
 
-            <button className="bg-emerald-600 text-white px-6 py-2.5 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-medium shadow-md hover:shadow-lg">
+            {/* Remaining nav links */}
+            {navLinks.slice(1).map(link => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <button 
+              onClick={handleGetStarted}
+              className="bg-emerald-600 text-white px-6 py-2.5 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-medium shadow-md hover:shadow-lg"
+            >
               Get Started
             </button>
           </div>
@@ -118,17 +149,16 @@ export default function Header() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-3 border-t border-gray-100">
-            {navLinks.map(link => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* Home link */}
+            <Link
+              to="/"
+              className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
 
+            {/* Services Dropdown */}
             <div className="py-2" ref={mobileDropdownRef}>
               <button
                 onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
@@ -157,9 +187,21 @@ export default function Header() {
               )}
             </div>
 
+            {/* Remaining nav links */}
+            {navLinks.slice(1).map(link => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="block text-gray-700 hover:text-emerald-600 transition-colors font-medium py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+
             <button 
+              onClick={handleGetStarted}
               className="w-full bg-emerald-600 text-white px-6 py-2.5 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-medium"
-              onClick={() => setMobileMenuOpen(false)}
             >
               Get Started
             </button>

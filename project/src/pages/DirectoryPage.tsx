@@ -343,14 +343,11 @@ export default function DirectoryPage() {
                     onClick={() => setExpandedCountry(expandedCountry === countryData.country ? null : countryData.country)}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-3xl">{countryData.flag}</span>
-                        <div>
-                          <h2 className="text-2xl font-bold text-gray-900">{countryData.country}</h2>
-                          <p className="text-sm text-gray-600">
-                            {countryData.companies.length} company{countryData.companies.length > 1 ? 's' : ''} listed
-                          </p>
-                        </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-gray-900">{countryData.country}</h2>
+                        <p className="text-sm text-gray-600">
+                          {countryData.companies.length} company{countryData.companies.length > 1 ? 's' : ''} listed
+                        </p>
                       </div>
                       <button className="text-emerald-600 hover:text-emerald-700 font-semibold text-sm">
                         {expandedCountry === countryData.country ? 'Show Less ↑' : 'Show More ↓'}

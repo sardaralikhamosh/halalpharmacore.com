@@ -286,29 +286,10 @@ export default function MarketNewsPage() {
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-teal-100/80 max-w-3xl mx-auto leading-relaxed mb-10">
+          <p className="text-lg sm:text-xl text-teal-100/80 max-w-3xl mx-auto leading-relaxed">
             Stay informed with the latest developments, collaborations, and breakthroughs
             shaping the global halal pharmaceutical industry.
           </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            {[
-              { icon: Newspaper, value: newsData.length, label: 'Total Articles' },
-              { icon: Globe, value: '5+', label: 'Countries Covered' },
-              { icon: TrendingUp, value: '$132B', label: 'Market Value' },
-              { icon: Filter, value: categories.length - 1, label: 'Categories' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 p-5 hover:bg-white/15 transition-all duration-300 hover:-translate-y-1"
-              >
-                <stat.icon className="text-teal-300 mx-auto mb-2" size={24} />
-                <div className="text-2xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-teal-200/70 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

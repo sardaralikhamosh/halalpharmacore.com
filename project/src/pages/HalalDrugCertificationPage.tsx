@@ -232,9 +232,9 @@ export default function HalalDrugCertificationPage() {
 
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8 items-stretch">
-            <div className="lg:col-span-2 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 border border-blue-200">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 border border-blue-200">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight text-center">
                 Why Choose Halal Pharmacore?
               </h2>
               <div className="space-y-6">
@@ -275,72 +275,6 @@ export default function HalalDrugCertificationPage() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-gradient-to-br from-teal-600 to-blue-600 text-white rounded-2xl p-8 shadow-xl flex flex-col justify-between">
-              <div>
-                <h3 className="text-2xl font-bold mb-6">Start Your Certification Today</h3>
-                <p className="text-teal-50 mb-8 leading-relaxed">
-                  Connect with our team to discuss your pharmaceutical certification needs and market expansion strategy.
-                </p>
-              </div>
-
-              <form className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Company Name"
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
-                  />
-                </div>
-                <div>
-                  <select className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none">
-                    <option value="" className="bg-gray-800">Select Target Market</option>
-                    <option value="malaysia" className="bg-gray-800">Malaysia</option>
-                    <option value="indonesia" className="bg-gray-800">Indonesia</option>
-                    <option value="turkey" className="bg-gray-800">Turkey</option>
-                    <option value="uae" className="bg-gray-800">UAE</option>
-                    <option value="saudi-arabia" className="bg-gray-800">Saudi Arabia</option>
-                    <option value="iran" className="bg-gray-800">Iran</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-white text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl mt-6"
-                >
-                  Request Consultation
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-gradient-to-r from-blue-900 to-teal-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold mb-2">6+</div>
-              <p className="text-blue-100">Major Markets Covered</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">100+</div>
-              <p className="text-blue-100">Companies Certified</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">95%</div>
-              <p className="text-blue-100">Success Rate</p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">24/7</div>
-              <p className="text-blue-100">Expert Support</p>
             </div>
           </div>
         </div>

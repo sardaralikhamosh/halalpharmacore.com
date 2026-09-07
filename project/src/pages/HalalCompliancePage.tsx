@@ -314,80 +314,38 @@ export default function HalalCompliancePage() {
 
       <section className="py-24 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-                Ready to Achieve Halal Certification?
-              </h2>
-              <p className="text-emerald-50 text-lg mb-8 leading-relaxed">
-                Our expert team can guide you through every step of the halal compliance process, from initial assessment to final certification.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white/20 p-2 rounded-lg">
-                    <CheckCircle2 className="text-white" size={20} />
-                  </div>
-                  <span className="text-emerald-50">Complete compliance audit</span>
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Ready to Achieve Halal Certification?
+            </h2>
+            <p className="text-emerald-50 text-lg mb-8 leading-relaxed">
+              Our expert team can guide you through every step of the halal compliance process, from initial assessment to final certification.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-8 text-left max-w-2xl mx-auto">
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <CheckCircle2 className="text-white" size={20} />
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="bg-white/20 p-2 rounded-lg">
-                    <CheckCircle2 className="text-white" size={20} />
-                  </div>
-                  <span className="text-emerald-50">Documentation preparation support</span>
+                <span className="text-emerald-50">Complete compliance audit</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <CheckCircle2 className="text-white" size={20} />
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="bg-white/20 p-2 rounded-lg">
-                    <CheckCircle2 className="text-white" size={20} />
-                  </div>
-                  <span className="text-emerald-50">Ongoing certification maintenance</span>
+                <span className="text-emerald-50">Documentation preparation support</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <CheckCircle2 className="text-white" size={20} />
                 </div>
+                <span className="text-emerald-50">Ongoing certification maintenance</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-2xl">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Start Your Certification Journey</h3>
-              <form className="space-y-4">
-                <div>
-                  <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none text-gray-900"
-                    placeholder="Your Company"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="contact-email"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none text-gray-900"
-                    placeholder="you@company.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
-                    Tell us about your needs
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none resize-none text-gray-900"
-                    placeholder="What products do you need certified?"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-emerald-600 text-white px-6 py-4 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
-                >
-                  Request Consultation
-                </button>
-              </form>
-            </div>
+            <button className="px-8 py-4 rounded-lg bg-white text-emerald-600 font-semibold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2">
+              Request Consultation
+            </button>
           </div>
         </div>
       </section>
