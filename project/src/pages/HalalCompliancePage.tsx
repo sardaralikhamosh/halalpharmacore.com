@@ -1,4 +1,5 @@
 import { Shield, CheckCircle2, FileText, Package, Truck, ClipboardCheck, AlertCircle, Beaker, Leaf } from 'lucide-react';
+import { useState } from 'react';
 
 const requirements = [
   {
@@ -94,6 +95,54 @@ const hostCellsData = [
 ];
 
 export default function HalalCompliancePage() {
+  const [formData, setFormData] = useState({
+    company: '',
+    email: '',
+    product: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Using mailto for simple implementation
+    const subject = encodeURIComponent(`New Halal Compliance Inquiry from ${formData.company || 'Anonymous'}`);
+    const body = encodeURIComponent(
+      `Company Name: ${formData.company}\n` +
+      `Email: ${formData.email}\n` +
+      `Products to Certify: ${formData.product}`
+    );
+
+    window.location.href = `mailto:info@halalpharmacore.com?subject=${subject}&body=${body}`;
+
+    // Show success popup
+    setPopupMessage('Your compliance inquiry has been submitted successfully! You will get a response within 24 hours.');
+    setShowPopup(true);
+
+    // Reset form
+    setFormData({
+      company: '',
+      email: '',
+      product: '',
+    });
+
+    setIsSubmitting(false);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+  };
+
   return (
     <main className="pt-20">
       <section className="relative py-32 bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900 overflow-hidden">
@@ -314,41 +363,133 @@ export default function HalalCompliancePage() {
 
       <section className="py-24 bg-gradient-to-br from-emerald-600 to-teal-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Achieve Halal Certification?
-            </h2>
-            <p className="text-emerald-50 text-lg mb-8 leading-relaxed">
-              Our expert team can guide you through every step of the halal compliance process, from initial assessment to final certification.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-4 mb-8 text-left max-w-2xl mx-auto">
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <CheckCircle2 className="text-white" size={20} />
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+                Ready to Achieve Halal Certification?
+              </h2>
+              <p className="text-emerald-50 text-lg mb-8 leading-relaxed">
+                Our expert team can guide you through every step of the halal compliance process, from initial assessment to final certification.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-emerald-50">Complete compliance audit</span>
                 </div>
-                <span className="text-emerald-50">Complete compliance audit</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <CheckCircle2 className="text-white" size={20} />
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-emerald-50">Documentation preparation support</span>
                 </div>
-                <span className="text-emerald-50">Documentation preparation support</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <CheckCircle2 className="text-white" size={20} />
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-emerald-50">Ongoing certification maintenance</span>
                 </div>
-                <span className="text-emerald-50">Ongoing certification maintenance</span>
               </div>
             </div>
 
-            <button className="px-8 py-4 rounded-lg bg-white text-emerald-600 font-semibold hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2">
-              Request Consultation
-            </button>
+            <div className="bg-white rounded-2xl p-8 shadow-2xl">
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Start Your Compliance Journey</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none text-gray-900"
+                    placeholder="Your Company"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none text-gray-900"
+                    placeholder="you@company.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="product" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Products to Certify
+                  </label>
+                  <textarea
+                    id="product"
+                    rows={3}
+                    value={formData.product}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 transition-all duration-300 outline-none resize-none text-gray-900"
+                    placeholder="What products do you need certified?"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-emerald-600 text-white px-6 py-4 rounded-lg hover:bg-emerald-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Request Consultation'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPopup(false)}></div>
+          <div className="relative bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 leading-relaxed">{popupMessage}</p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="mt-6 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
     </main>
   );
 }

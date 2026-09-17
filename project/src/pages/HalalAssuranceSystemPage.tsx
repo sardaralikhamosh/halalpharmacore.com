@@ -1,4 +1,5 @@
 import { Shield, Users, BarChart3, CheckCircle2, Zap, FileCheck, AlertCircle, TrendingUp, BookOpen } from 'lucide-react';
+import { useState } from 'react';
 
 const services = [
   {
@@ -102,6 +103,57 @@ const benefits = [
 ];
 
 export default function HalalAssuranceSystemPage() {
+  const [formData, setFormData] = useState({
+    orgName: '',
+    email: '',
+    sector: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Using mailto for simple implementation
+    const subject = encodeURIComponent(`New HAS Inquiry from ${formData.orgName || 'Anonymous'}`);
+    const body = encodeURIComponent(
+      `Organization Name: ${formData.orgName}\n` +
+      `Email: ${formData.email}\n` +
+      `Industry Sector: ${formData.sector}\n` +
+      `HAS Needs: ${formData.message}`
+    );
+
+    window.location.href = `mailto:info@halalpharmacore.com?subject=${subject}&body=${body}`;
+
+    // Show success popup
+    setPopupMessage('Your HAS inquiry has been submitted successfully! You will get a response within 24 hours.');
+    setShowPopup(true);
+
+    // Reset form
+    setFormData({
+      orgName: '',
+      email: '',
+      sector: '',
+      message: '',
+    });
+
+    setIsSubmitting(false);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+  };
+
   return (
     <main className="pt-20">
       <section className="relative py-32 bg-gradient-to-br from-teal-900 via-cyan-800 to-blue-900 overflow-hidden">
@@ -258,36 +310,116 @@ export default function HalalAssuranceSystemPage() {
 
       <section className="py-24 bg-gradient-to-br from-teal-900 via-cyan-800 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              Ready to Build Your HAS?
-            </h2>
-            <p className="text-teal-50 text-lg mb-8 leading-relaxed">
-              Let our expert team guide you through establishing a comprehensive Halal Assurance System that meets international standards and regulatory requirements.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                Ready to Build Your HAS?
+              </h2>
+              <p className="text-teal-50 text-lg mb-8 leading-relaxed">
+                Let our expert team guide you through establishing a comprehensive Halal Assurance System that meets international standards and regulatory requirements.
+              </p>
 
-            <div className="grid md:grid-cols-2 gap-4 mb-8 text-left max-w-2xl mx-auto">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                <span className="text-teal-50">Customized implementation roadmap</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                <span className="text-teal-50">Expert staff training and development</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                <span className="text-teal-50">Ongoing compliance monitoring</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-teal-300"></div>
-                <span className="text-teal-50">Dedicated support throughout implementation</span>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-teal-50">Customized implementation roadmap</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-teal-50">Expert staff training and development</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-teal-50">Ongoing compliance monitoring</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <CheckCircle2 className="text-white" size={20} />
+                  </div>
+                  <span className="text-teal-50">Dedicated support throughout implementation</span>
+                </div>
               </div>
             </div>
 
-            <button className="px-8 py-4 rounded-lg bg-white text-teal-600 font-semibold hover:bg-teal-50 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center gap-2">
-              Schedule Consultation
-            </button>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 shadow-2xl">
+              <h3 className="text-2xl font-bold mb-6">Get Started Today</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="orgName" className="block text-sm font-semibold text-teal-100 mb-2">
+                    Organization Name
+                  </label>
+                  <input
+                    type="text"
+                    id="orgName"
+                    value={formData.orgName}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                    placeholder="Your Organization"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-semibold text-teal-100 mb-2">
+                    Contact Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                    placeholder="you@organization.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="sector" className="block text-sm font-semibold text-teal-100 mb-2">
+                    Industry Sector
+                  </label>
+                  <select
+                    id="sector"
+                    value={formData.sector}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                  >
+                    <option value="" className="bg-gray-800">Select your sector</option>
+                    <option value="pharmaceutical" className="bg-gray-800">Pharmaceutical</option>
+                    <option value="food-beverage" className="bg-gray-800">Food & Beverage</option>
+                    <option value="cosmetics" className="bg-gray-800">Cosmetics</option>
+                    <option value="nutraceutical" className="bg-gray-800">Nutraceutical</option>
+                    <option value="other" className="bg-gray-800">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-semibold text-teal-100 mb-2">
+                    Tell us about your HAS needs
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none resize-none"
+                    placeholder="What are your specific HAS requirements?"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-white text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Request Consultation'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -319,6 +451,46 @@ export default function HalalAssuranceSystemPage() {
           </div>
         </div>
       </section>
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPopup(false)}></div>
+          <div className="relative bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 leading-relaxed">{popupMessage}</p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="mt-6 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
     </main>
   );
 }

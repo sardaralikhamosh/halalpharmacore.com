@@ -1,4 +1,5 @@
 import { TrendingUp, Globe2, Search, BarChart3, Target, ArrowRight, DollarSign, Users, Building2 } from 'lucide-react';
+import { useState } from 'react';
 
 const markets = [
   {
@@ -52,6 +53,60 @@ const markets = [
 ];
 
 export default function MarketAnalysisPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    marketInterest: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Using mailto for simple implementation
+    const subject = encodeURIComponent(`New Market Analysis Inquiry from ${formData.name || 'Anonymous'}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Company: ${formData.company}\n` +
+      `Market Interest: ${formData.marketInterest}\n` +
+      `Message: ${formData.message}`
+    );
+
+    window.location.href = `mailto:info@halalpharmacore.com?subject=${subject}&body=${body}`;
+
+    // Show success popup
+    setPopupMessage('Your market analysis inquiry has been submitted successfully! You will get a response within 24 hours.');
+    setShowPopup(true);
+
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      company: '',
+      marketInterest: '',
+      message: '',
+    });
+
+    setIsSubmitting(false);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+  };
+
   return (
     <main className="pt-20">
       <section className="relative py-32 bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900 overflow-hidden">
@@ -243,23 +298,138 @@ export default function MarketAnalysisPage() {
                     <span className="text-emerald-50">Regulatory pathway guidance</span>
                   </div>
                 </div>
-
-                <button className="bg-white text-emerald-600 px-8 py-4 rounded-lg hover:bg-emerald-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
-                  Schedule Consultation
-                </button>
               </div>
 
-              <div className="hidden lg:block relative h-full min-h-[500px]">
-                <img
-                  src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Market Analysis"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+              <div className="p-12 lg:p-16 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 mx-6 lg:mx-0">
+                <h3 className="text-2xl font-bold text-white mb-6">Get Started Today</h3>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-semibold text-teal-100 mb-2">
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                      placeholder="John Doe"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-teal-100 mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                      placeholder="you@company.com"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-semibold text-teal-100 mb-2">
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                      placeholder="Your Company"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="marketInterest" className="block text-sm font-semibold text-teal-100 mb-2">
+                      Market of Interest
+                    </label>
+                    <select
+                      id="marketInterest"
+                      value={formData.marketInterest}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                    >
+                      <option value="" className="bg-gray-800">Select a market</option>
+                      <option value="malaysia" className="bg-gray-800">Malaysia</option>
+                      <option value="indonesia" className="bg-gray-800">Indonesia</option>
+                      <option value="turkey" className="bg-gray-800">Turkey</option>
+                      <option value="uae" className="bg-gray-800">United Arab Emirates</option>
+                      <option value="saudi-arabia" className="bg-gray-800">Saudi Arabia</option>
+                      <option value="iran" className="bg-gray-800">Iran</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-semibold text-teal-100 mb-2">
+                      Tell us about your market analysis needs
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={3}
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none resize-none"
+                      placeholder="What markets are you interested in exploring?"
+                    ></textarea>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-white text-emerald-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Request Consultation'}
+                  </button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPopup(false)}></div>
+          <div className="relative bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 leading-relaxed">{popupMessage}</p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="mt-6 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
     </main>
   );
 }

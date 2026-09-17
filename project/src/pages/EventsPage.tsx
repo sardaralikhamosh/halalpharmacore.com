@@ -17,7 +17,7 @@ const events = [
     attendees: '300+ participants',
     description: 'Intensive three-day workshop covering halal certification requirements, documentation, and best practices.',
     type: 'Workshop',
-    image: 'https://images.pexels.com/photos/3808519/pexels-photo-3808519.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/public/image-1.jpeg',
   },
   {
     title: 'APAC Pharmaceutical Regulations Seminar',
@@ -35,7 +35,7 @@ const events = [
     attendees: '1,500+ visitors',
     description: 'Exhibition showcasing latest halal manufacturing technologies and solutions from leading providers.',
     type: 'Expo',
-    image: 'https://images.pexels.com/photos/3807516/pexels-photo-3807516.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/public/image-2.png',
   },
   {
     title: 'Market Access and Distribution Forum',
@@ -44,7 +44,7 @@ const events = [
     attendees: '800+ professionals',
     description: 'Forum focused on market access strategies and distribution channel development in Middle East and Africa.',
     type: 'Forum',
-    image: 'https://images.pexels.com/photos/3808509/pexels-photo-3808509.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/public/image-3.jpg',
   },
   {
     title: 'Q4 Networking Gala',
@@ -53,7 +53,7 @@ const events = [
     attendees: '400+ executives',
     description: 'Exclusive networking event bringing together pharmaceutical executives and certification experts.',
     type: 'Networking',
-    image: 'https://images.pexels.com/photos/3807515/pexels-photo-3807515.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/public/image-4.jpg',
   },
 ];
 

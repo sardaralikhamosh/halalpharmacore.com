@@ -1,4 +1,5 @@
 import { Globe, CheckCircle2, TrendingUp, Award, Zap, Users, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 const markets = [
   {
@@ -109,6 +110,54 @@ const certificationSteps = [
 ];
 
 export default function HalalDrugCertificationPage() {
+  const [formData, setFormData] = useState({
+    company: '',
+    email: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Using mailto for simple implementation
+    const subject = encodeURIComponent(`New Certification Inquiry from ${formData.company || 'Anonymous'}`);
+    const body = encodeURIComponent(
+      `Company Name: ${formData.company}\n` +
+      `Email: ${formData.email}\n` +
+      `Message: ${formData.message}`
+    );
+
+    window.location.href = `mailto:info@halalpharmacore.com?subject=${subject}&body=${body}`;
+
+    // Show success popup
+    setPopupMessage('Your certification inquiry has been submitted successfully! You will get a response within 24 hours.');
+    setShowPopup(true);
+
+    // Reset form
+    setFormData({
+      company: '',
+      email: '',
+      message: '',
+    });
+
+    setIsSubmitting(false);
+
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+  };
+
   return (
     <main className="pt-20">
       <section className="relative py-32 bg-gradient-to-br from-blue-900 via-teal-800 to-cyan-900 overflow-hidden">
@@ -232,9 +281,9 @@ export default function HalalDrugCertificationPage() {
 
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 border border-blue-200">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight text-center">
+          <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+            <div className="lg:col-span-2 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-12 border border-blue-200">
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 Why Choose Halal Pharmacore?
               </h2>
               <div className="space-y-6">
@@ -276,9 +325,115 @@ export default function HalalDrugCertificationPage() {
                 </div>
               </div>
             </div>
+
+            <div className="bg-gradient-to-br from-teal-600 to-blue-600 text-white rounded-2xl p-8 shadow-xl flex flex-col justify-between">
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Start Your Certification Today</h3>
+                <p className="text-teal-50 mb-8 leading-relaxed">
+                  Connect with our team to discuss your pharmaceutical certification needs and market expansion strategy.
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    id="company"
+                    placeholder="Company Name"
+                    value={formData.company}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                  />
+                </div>
+                <div>
+                  <select 
+                    id="market"
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none"
+                  >
+                    <option value="" className="bg-gray-800">Select Target Market</option>
+                    <option value="malaysia" className="bg-gray-800">Malaysia</option>
+                    <option value="indonesia" className="bg-gray-800">Indonesia</option>
+                    <option value="turkey" className="bg-gray-800">Turkey</option>
+                    <option value="uae" className="bg-gray-800">UAE</option>
+                    <option value="saudi-arabia" className="bg-gray-800">Saudi Arabia</option>
+                    <option value="iran" className="bg-gray-800">Iran</option>
+                  </select>
+                </div>
+                <div>
+                  <textarea
+                    id="message"
+                    rows={3}
+                    placeholder="Tell us about your certification needs"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/60 focus:border-white focus:ring-2 focus:ring-white/20 transition-all duration-300 outline-none resize-none"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-white text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Request Consultation'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPopup(false)}></div>
+          <div className="relative bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fadeIn">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Success!</h3>
+              <p className="text-gray-600 leading-relaxed">{popupMessage}</p>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="mt-6 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+      `}</style>
     </main>
   );
 }
